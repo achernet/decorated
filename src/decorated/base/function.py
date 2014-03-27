@@ -9,7 +9,9 @@ import inspect
 WRAPPER_ASSIGNMENTS = ('__module__', '__name__', '__doc__', '__code__', 'func_code')
 
 class Function(Proxy):
+
     def __init__(self, *args, **kw):
+        super(Function, self).__init__()
         self.params = None
         self.required_params = None
         self.optional_params = None
@@ -88,14 +90,14 @@ class Function(Proxy):
         self.optional_params = tuple(self.optional_params)
         
     def _resolve_args(self, *args, **kw):
-        d = {name: default for name, default in self.optional_params}
+        d = dict([(name, default) for name, default in self.optional_params])
         for param, arg in zip(self.params, args):
             d[param] = arg
         d.update(kw)
         for name in self.params:
             if name not in d:
                 raise Exception('Missing argument "%s" for %s.' % (name, str(self)))
-        d = {k: v for k, v in d.items() if k in self.params}
+        d = dict([(k, v) for k, v in d.items() if k in self.params])
         return d
     
     def _target(self):

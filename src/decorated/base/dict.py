@@ -56,16 +56,16 @@ class Dict(dict):
             return super(Dict, self).__getitem__(name)
         except KeyError as e:
             raise AttributeError(str(e))
-    
-    def __setattr__(self, name, value): 
+
+    def __setattr__(self, name, value):
         super(Dict, self).__setitem__(name, value)
-    
+
     def __delattr__(self, name):
         try:
             super(Dict, self).__delitem__(name)
         except KeyError as e:
             raise AttributeError(str(e))
-        
+
 class DefaultDict(Dict):
     '''
     >>> d = DefaultDict(lambda k: 2 * k)
@@ -77,15 +77,15 @@ class DefaultDict(Dict):
     'bb'
     >>> 'b' in d
     True
-    
+
     >>> d = DefaultDict()
     >>> d.a is None
     True
-    
+
     >>> d = DefaultDict(a=1, b=2)
     >>> d.a
     1
-    
+
     >>> d = DefaultDict()
     >>> len(d)
     0
@@ -101,15 +101,14 @@ class DefaultDict(Dict):
     def __init__(self, default=None, **kw):
         super(DefaultDict, self).__init__(**kw)
         dict.__setattr__(self, '_default', default or (lambda key: None))
-        
+
     def __getattr__(self, key):
         return self.__getitem__(key)
-    
+
     def __getitem__(self, key):
         if key not in self:
             self[key] = self._default(key)
         return super(DefaultDict, self).__getitem__(key)
-        
+
 if __name__ == '__main__':
     doctest.testmod()
-    

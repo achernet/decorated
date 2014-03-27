@@ -64,7 +64,7 @@ class Event(with_metaclass(EventMetaType, Function)):
     
     def _get_field_values(self, ret, *args, **kw):
         values = self._resolve_args(*args, **kw)
-        values = {k: v for k, v in values.items() if k in self.fields}
+        values = dict([(k, v) for k, v in values.items() if k in self.fields])
         if self.ret_field:
             values[self.ret_field] = ret
         return values

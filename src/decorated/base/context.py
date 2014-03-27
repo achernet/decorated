@@ -51,7 +51,7 @@ class Context(Dict):
         
     def dict(self):
         data = self._parent.dict() if self._parent else Dict()
-        data.update({k: v for k, v in self.items() if not k.startswith('_')})
+        data.update(dict([(k, v) for k, v in self.items() if not k.startswith('_')]))
         return data
         
     def get(self, name, default=None):
