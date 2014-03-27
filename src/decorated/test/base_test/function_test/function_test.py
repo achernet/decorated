@@ -82,7 +82,7 @@ class TargetTest(TestCase):
 class StrTest(TestCase):
     def test(self):
         s = str(foo)
-        self.assertEquals('<Function base_test.function_test.function_test.foo>', s)
+        self.assertEquals('<Function decorated.test.base_test.function_test.function_test.foo>', s)
 
 class ResolveArgsTest(TestCase):
     def test_simple(self):

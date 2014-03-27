@@ -21,6 +21,7 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
         'Topic :: Software Development :: Libraries',
+    ],
     tests_require=[
         "nose>=1.3.1",
         "coverage>=3.7.1",
