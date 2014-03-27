@@ -10,7 +10,11 @@ class InstantiateTest(TestCase):
             def __call__(self, a, b):
                 return a + b
         self.assertEqual('Foo', Foo.__name__)
-        self.assertEqual('decorators_test.instantiate_test', Foo.__module__)
+        potential_namespace_parts = ["decorators_test", "test", "decorated"]
+        potential_namespaces = ["instantiate_test"]
+        for ns_part in reversed(potential_namespace_parts):
+            potential_namespaces.append(".".join([ns_part, potential_namespaces[-1]]))
+        self.assertIn(Foo.__module__, potential_namespaces)
         self.assertTrue(inspect.isclass(Foo.class_))
         result = Foo(1, b=2)
         self.assertEqual(3, result)
