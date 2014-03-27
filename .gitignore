@@ -11,3 +11,4 @@
 src/build
 src/dist
 src/MANIFEST
+src/*.egg-info/
