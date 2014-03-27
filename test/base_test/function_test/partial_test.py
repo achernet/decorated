@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from decorated.base.function import Function, partial
-from unittest.case import TestCase
+from unittest2.case import TestCase
 
 class FullDecorator(Function):
     def _init(self, a, b, c=None):

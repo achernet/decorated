@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from decorated.decorators.synchronized import MemoryLock, Synchronized, FileLock
 from threading import Thread
-from unittest.case import TestCase
+from unittest2.case import TestCase
 import time
 
 class FileLockTest(TestCase):

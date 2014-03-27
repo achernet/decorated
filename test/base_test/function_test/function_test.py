@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from decorated.base.function import Function
 from decorated.util.templates import Template, TemplateError
-from unittest.case import TestCase
+from unittest2.case import TestCase
 import inspect
 
 @Function

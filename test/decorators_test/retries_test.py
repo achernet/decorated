@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from decorated.decorators.retries import Retries
-from unittest.case import TestCase
+from unittest2.case import TestCase
 
 class RetriesTest(TestCase):
     def test_success_at_first(self):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from decorated.base.proxy import Proxy
-from unittest.case import TestCase
+from unittest2.case import TestCase
 
 class TargetTest(TestCase):
     def test_static(self):

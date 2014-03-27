@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from decorated.decorators.conditional import Conditional
-from unittest.case import TestCase
+from unittest2.case import TestCase
 
 class ConditionalTest(TestCase):
     def test_string(self):

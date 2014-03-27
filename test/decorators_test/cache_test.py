@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from decorated.base.context import Context, ctx
 from decorated.decorators.cache import SimpleCache, LruCache
-from unittest.case import TestCase
+from unittest2.case import TestCase
 
 class SimpleCacheTest(TestCase):
     def test(self):

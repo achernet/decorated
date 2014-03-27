@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from decorated.decorators.instantiate import Instantiate
-from unittest.case import TestCase
+from unittest2.case import TestCase
 import inspect
 
 class InstantiateTest(TestCase):

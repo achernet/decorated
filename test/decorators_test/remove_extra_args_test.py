@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from decorated.decorators.remove_extra_args import RemoveExtraArgs
-from unittest.case import TestCase
+from unittest2.case import TestCase
 
 @RemoveExtraArgs
 def foo(a, b):

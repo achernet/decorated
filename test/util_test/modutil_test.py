@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from decorated.util import modutil
-from unittest.case import TestCase
+from unittest2.case import TestCase
 
 class LoadTreeTest(TestCase):
     def test_package(self):

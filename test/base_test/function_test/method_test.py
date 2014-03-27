@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from decorated.base.function import Function
-from unittest.case import TestCase
+from unittest2.case import TestCase
 import gc
 import six
 

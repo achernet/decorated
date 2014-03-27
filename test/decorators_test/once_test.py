@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from decorated.base.context import Context
 from decorated.decorators.once import Once, OnceSession
-from unittest.case import TestCase
+from unittest2.case import TestCase
 
 class DefaultSessionTest(TestCase):
     def test_no_key(self):

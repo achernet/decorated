@@ -2,7 +2,7 @@
 from decorated.base.dict import Dict
 from decorated.util import templates
 from decorated.util.templates import StringPart, VariablePart, TemplateError
-from unittest.case import TestCase
+from unittest2.case import TestCase
 
 class CompileTest(TestCase):
     def test_normal(self):

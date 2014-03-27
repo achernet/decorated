@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from decorated.decorators.timeout import Timeout, TimeoutError, TimeoutDecorator
-from unittest.case import TestCase
+from unittest2.case import TestCase
 import signal
 import time
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from decorated.base.thread_local import ThreadLocal
 from threading import Thread
-from unittest.case import TestCase
+from unittest2.case import TestCase
 
 class ThreadLocalTest(TestCase):
     def test_local_thread(self):
