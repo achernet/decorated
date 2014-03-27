@@ -4,8 +4,7 @@ try:
 except ImportError:
     from ez_setup import use_setuptools
     use_setuptools()
-    from setuptools import  setup, find_packages
-
+    from setuptools import setup, find_packages
 
 setup(
     name='decorated',
@@ -27,12 +26,16 @@ setup(
         "coverage>=3.7.1",
         "unittest2>=0.5.1",
         "fixtures>=0.3.14",
+        "testtools>=0.9.35",
+        "extras>=0.0.3",
+        "python-mimeparse>=0.1.4"
     ],
     description='Decorator framework and common decorators for python.',
     install_requires=[
         "six>=1.6.1",
         "importlib>=1.0.3",
-        "unittest2>=0.5.1"
+        "unittest2>=0.5.1",
+        "pylru>=1.0.6"
     ],
     url='https://github.com/CooledCoffee/decorated/',
     zip_safe=True,

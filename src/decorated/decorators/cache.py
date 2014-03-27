@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from decorated.base.function import Function
+from pylru import lrucache
 from decorated.util import modutil, templates
 
 _ENABLED = True
@@ -13,7 +14,7 @@ class BaseDecorator(Function):
             return self._process(key, *args, **kw)
         else:
             return super(BaseDecorator, self)._call(*args, **kw)
-        
+
     def _decorate(self, func):
         super(BaseDecorator, self)._decorate(func)
         var_names = self.params + tuple(self._extra_vars.keys())
@@ -25,10 +26,10 @@ class BaseDecorator(Function):
         self._cache = cache
         self._key = key
         self._extra_vars = extra_vars or {}
-        
+
     def _process(self, key, *args, **kw):
         raise NotImplementedError()
-    
+
 class Cache(object):
     def cache(self, key, **kw):
         class Decorator(BaseDecorator):
@@ -39,7 +40,7 @@ class Cache(object):
                     self._cache._set(key, result)
                 return result
         return Decorator(self, key, extra_vars=kw)
-    
+
     def uncache(self, key, **kw):
         class Decorator(BaseDecorator):
             def _process(self, key, *args, **kw):
@@ -47,45 +48,42 @@ class Cache(object):
                 self._cache._delete(key)
                 return result
         return Decorator(self, key, extra_vars=kw)
-    
+
     def _delete(self, key):
         raise NotImplementedError()
-    
+
     def _get(self, key):
         raise NotImplementedError()
-    
+
     def _set(self, key, value):
         raise NotImplementedError()
 
 class SimpleCache(Cache):
     def __init__(self):
         self._data = {}
-        
+
     def _delete(self, key):
         del self._data[key]
-        
+
     def _get(self, key):
         return self._data.get(key)
-        
+
     def _set(self, key, value):
         self._data[key] = value
-        
-if modutil.module_exists('pylru'):
-    from pylru import lrucache
-    
-    class LruCache(Cache):
-        def __init__(self, size=1000):
-            self._cache = lrucache(size)
-            
-        def _delete(self, key):
-            del self._cache[key]
-        
-        def _get(self, key):
-            try:
-                return self._cache[key]
-            except KeyError:
-                return None
-        
-        def _set(self, key, value):
-            self._cache[key] = value
-            
+
+
+class LruCache(Cache):
+    def __init__(self, size=1000):
+        self._cache = lrucache(size)
+
+    def _delete(self, key):
+        del self._cache[key]
+
+    def _get(self, key):
+        try:
+            return self._cache[key]
+        except KeyError:
+            return None
+
+    def _set(self, key, value):
+        self._cache[key] = value
