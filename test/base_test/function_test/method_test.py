@@ -11,7 +11,7 @@ class MethodTest(TestCase):
             @Function
             def bar(self, a, b=0):
                 return a + b
-            
+
         # test by class
         self.assertEqual(Foo, Foo.bar.im_class)
         self.assertIsNone(Foo.bar.im_self)
@@ -19,7 +19,7 @@ class MethodTest(TestCase):
         self.assertEqual(('self', 'a', 'b'), Foo.bar.im_func.params)
         self.assertEqual(('self', 'a', 'b'), Foo.bar.__func__.params)
         self.assertEquals(3, Foo.bar(Foo(), 1, b=2))
-        
+
         # test by instance
         foo = Foo()
         self.assertEqual(Foo, foo.bar.im_class)
@@ -28,7 +28,7 @@ class MethodTest(TestCase):
         self.assertEqual(('self', 'a', 'b'), foo.bar.im_func.params)
         self.assertEqual(('self', 'a', 'b'), foo.bar.__func__.params)
         self.assertEquals(3, foo.bar(1, b=2))
-        
+
     def test_multi_levels(self):
         # set up
         class Foo(object):
@@ -36,7 +36,7 @@ class MethodTest(TestCase):
             @Function
             def bar(self, a, b=0):
                 return a + b
-            
+
         # test by class
         self.assertEqual(Foo, Foo.bar.im_class)
         self.assertIsNone(Foo.bar.im_self)
@@ -44,7 +44,7 @@ class MethodTest(TestCase):
         self.assertEqual(('self', 'a', 'b'), Foo.bar.im_func.params)
         self.assertEqual(('self', 'a', 'b'), Foo.bar.__func__.params)
         self.assertEquals(3, Foo.bar(Foo(), 1, b=2))
-        
+
         # test by instance
         foo = Foo()
         self.assertEqual(Foo, foo.bar.im_class)
@@ -53,7 +53,7 @@ class MethodTest(TestCase):
         self.assertEqual(('self', 'a', 'b'), foo.bar.im_func.params)
         self.assertEqual(('self', 'a', 'b'), foo.bar.__func__.params)
         self.assertEquals(3, foo.bar(1, b=2))
-        
+
     def test_static_method(self):
         # set up
         class Foo(object):
@@ -61,11 +61,11 @@ class MethodTest(TestCase):
             @Function
             def bar(a, b=0):
                 return a + b
-            
+
         # test
         self.assertEqual(('a', 'b'), Foo.bar.params)
         self.assertEquals(3, Foo.bar(1, b=2))
-        
+
     def test_class_method(self):
         # set up
         class Foo(object):
@@ -73,7 +73,7 @@ class MethodTest(TestCase):
             @Function
             def bar(cls, a, b=0):
                 return a + b
-            
+
         # test
         if six.PY2:
             self.assertEqual(type, Foo.bar.im_class)
@@ -85,7 +85,7 @@ class MethodTest(TestCase):
         else:
             self.fail()
         self.assertEquals(3, Foo.bar(1, b=2))
-        
+
     def test_cache(self):
         class Foo(object):
             @Function
@@ -96,4 +96,3 @@ class MethodTest(TestCase):
         self.assertEqual(foo.bar, foo.bar)
         del foo
         self.assertEqual(0, len(Foo.bar._instance_cache))
-        

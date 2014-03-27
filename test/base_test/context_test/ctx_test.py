@@ -12,12 +12,12 @@ class GetSetAttrTest(TestCase):
             self.assertEquals(3, ctx.b)
             d = ctx.dict()
             self.assertEquals({'a': 2, 'b': 3}, d)
-        
+
 class GetTest(TestCase):
     def test_success(self):
         with Context():
             self.assertIsInstance(ctx.get(), Context)
-            
+
     def test_no_context(self):
         with self.assertRaises(ContextError):
             ctx.a

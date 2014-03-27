@@ -9,7 +9,7 @@ class RetriesTest(TestCase):
             return 1
         result = foo()
         self.assertEqual(1, result)
-        
+
     def test_success_after_retry(self):
         @Retries(3)
         def foo():
@@ -21,7 +21,7 @@ class RetriesTest(TestCase):
         foo.times = 0
         result = foo()
         self.assertEqual(1, result)
-        
+
     def test_all_failed(self):
         @Retries(3)
         def foo():
@@ -31,7 +31,7 @@ class RetriesTest(TestCase):
         with self.assertRaises(Exception) as err:
             foo()
         self.assertEqual('Failed at retry 3.', str(err.exception))
-        
+
     def test_invalid_times(self):
         with self.assertRaises(Exception):
             @Retries(0)
@@ -41,5 +41,4 @@ class RetriesTest(TestCase):
             @Retries(-1)
             def bar():
                 pass
-            
-            
+

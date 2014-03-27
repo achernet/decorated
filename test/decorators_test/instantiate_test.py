@@ -14,7 +14,7 @@ class InstantiateTest(TestCase):
         self.assertTrue(inspect.isclass(Foo.class_))
         result = Foo(1, b=2)
         self.assertEqual(3, result)
-        
+
     def test_custom_call(self):
         @Instantiate('run')
         class Foo(object):
@@ -22,15 +22,14 @@ class InstantiateTest(TestCase):
                 return a + b
         result = Foo(1, b=2)
         self.assertEqual(3, result)
-        
+
     def test_callable(self):
         @Instantiate('run')
         class Foo(object):
             def __call__(self, a, b):
                 return a * b
-            
+
             def run(self, a, b):
                 return a + b
         result = Foo(1, b=2)
         self.assertEqual(3, result)
-        

@@ -7,7 +7,7 @@ class TargetTest(TestCase):
         target = object()
         proxied = Proxy(target)
         self.assertEqual(target, proxied._target())
-        
+
     def test_dynamic(self):
         target = object()
         class DynamicProxy(Proxy):
@@ -24,24 +24,24 @@ class GetAttrTest(TestCase):
             def __init__(self, target):
                 super(TestProxy, self).__init__(target)
                 self.foo = 'foo'
-                
+
             def bar(self):
                 return 'bar'
         proxy = TestProxy(Target())
         self.assertEqual('foo', proxy.foo)
         self.assertEqual('bar', proxy.bar())
-        
+
     def test_found_in_target(self):
         class Target(object):
             def __init__(self):
                 self.foo = 'foo'
-                
+
             def bar(self):
                 return 'bar'
         proxy = Proxy(Target())
         self.assertEqual('foo', proxy.foo)
         self.assertEqual('bar', proxy.bar())
-        
+
     def test_not_found(self):
         class Target(object):
             pass
@@ -50,11 +50,10 @@ class GetAttrTest(TestCase):
             proxy.foo
         with self.assertRaises(AttributeError):
             proxy.bar()
-            
+
     def test_no_target(self):
         proxy = Proxy()
         with self.assertRaises(AttributeError):
             proxy.foo
         with self.assertRaises(AttributeError):
             proxy.bar()
-            

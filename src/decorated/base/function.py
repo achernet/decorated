@@ -23,10 +23,10 @@ class Function(Proxy):
             self._decorate(args[0])
         else:
             self._init(*args, **kw)
-            
+
     def __call__(self, *args, **kw):
         return self._decorate_or_call(*args, **kw)
-    
+
     def __get__(self, obj, cls):
         cache = self._static_cache if obj is None else self._instance_cache
         key = obj or cls
@@ -40,19 +40,19 @@ class Function(Proxy):
         method.im_self = method.__self__ = obj
         cache[key] = method
         return method
-    
+
     def __str__(self):
         return '<Function %s.%s>' % (self._func.__module__, self.__name__)
-    
+
     def target(self):
         return self._func.target() if isinstance(self._func, Function) else self._func
-    
+
     def _call(self, *args, **kw):
         return self._func(*args, **kw)
-    
+
     def _compile_template(self, template):
         return templates.compile(template, self.params)
-    
+
     def _decorate(self, func):
         self._func = func
         functools.update_wrapper(self, func, WRAPPER_ASSIGNMENTS, updated=())
@@ -64,14 +64,14 @@ class Function(Proxy):
             self._parse_params(func)
         self._decorate_or_call = self._call
         return self
-    
+
     def _evaluate_expression(self, expression, *args, **kw):
         d = self._resolve_args(*args, **kw)
         return eval(expression, d)
-        
+
     def _init(self, *args, **kw):
         pass
-    
+
     def _parse_params(self, func):
         self.params, _, _, defaults = inspect.getargspec(func)
         if defaults:
@@ -88,7 +88,7 @@ class Function(Proxy):
         self.params = tuple(self.params)
         self.required_params = tuple(self.required_params)
         self.optional_params = tuple(self.optional_params)
-        
+
     def _resolve_args(self, *args, **kw):
         d = dict([(name, default) for name, default in self.optional_params])
         for param, arg in zip(self.params, args):
@@ -99,10 +99,10 @@ class Function(Proxy):
                 raise Exception('Missing argument "%s" for %s.' % (name, str(self)))
         d = dict([(k, v) for k, v in d.items() if k in self.params])
         return d
-    
+
     def _target(self):
         return self._func
-    
+
 def partial(func, init_args=(), init_kw=None, call_args=(), call_kw=None):
     if init_kw is None:
         init_kw = {}
@@ -113,13 +113,13 @@ def partial(func, init_args=(), init_kw=None, call_args=(), call_kw=None):
             args = tuple(init_args) + args
             kw.update(init_kw)
             super(_PartialFunction, self)._init(*args, **kw)
-            
+
         def _call(self, *args, **kw):
             args = tuple(call_args) + args
             merged_kw = dict(call_kw)
             merged_kw.update(kw)
             return super(_PartialFunction, self)._call(*args, **merged_kw)
-            
+
         def _parse_params(self, func):
             super(_PartialFunction, self)._parse_params(func)
             self.params = self.params[len(call_args):]
@@ -128,14 +128,14 @@ def partial(func, init_args=(), init_kw=None, call_args=(), call_kw=None):
             self.required_params = tuple([p for p in self.required_params if p not in call_kw])
             self.optional_params = tuple([(k, v) for (k, v) in self.optional_params if k not in call_kw])
     return _PartialFunction
-        
+
 def _is_bound_method(func):
     '''
     >>> def foo():
     ...     pass
     >>> _is_bound_method(foo)
     False
-    
+
     >>> class Foo(object):
     ...     def bar(self):
     ...         pass
@@ -148,4 +148,3 @@ def _is_bound_method(func):
 
 if __name__ == '__main__':
     doctest.testmod()
-    

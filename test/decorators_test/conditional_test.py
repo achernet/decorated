@@ -9,14 +9,14 @@ class ConditionalTest(TestCase):
             return a
         self.assertEqual(1, foo(1, 1))
         self.assertIsNone(foo(2, 2))
-        
+
     def test_lambda(self):
         @Conditional(condition=lambda a: a == 1)
         def foo(a, b):
             return a
         self.assertEqual(1, foo(1, 1))
         self.assertIsNone(foo(2, 2))
-        
+
     def test_function(self):
         def _condition(a):
             return a == 1
@@ -25,7 +25,7 @@ class ConditionalTest(TestCase):
             return a
         self.assertEqual(1, foo(1, 1))
         self.assertIsNone(foo(2, 2))
-        
+
     def test_on_method(self):
         class Foo(object):
             @Conditional(condition=lambda a: a == 1)
@@ -34,4 +34,3 @@ class ConditionalTest(TestCase):
         foo = Foo()
         self.assertEqual(1, foo.bar(1))
         self.assertIsNone(foo.bar(0))
-        

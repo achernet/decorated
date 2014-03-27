@@ -7,7 +7,7 @@ class FullDecorator(Function):
         self.a = a
         self.b = b
         self.c = c
-    
+
 def foo(d, e, f=None):
     return d + e + f
 
@@ -18,14 +18,14 @@ class InitTest(TestCase):
         self.assertEqual(1, decorated.a)
         self.assertEqual(2, decorated.b)
         self.assertEqual(3, decorated.c)
-        
+
     def test_with_args(self):
         partial_decorator = partial(FullDecorator, init_args=(1, 2))
         decorated = partial_decorator(3)(foo)
         self.assertEqual(1, decorated.a)
         self.assertEqual(2, decorated.b)
         self.assertEqual(3, decorated.c)
-        
+
     def test_with_kw(self):
         partial_decorator = partial(FullDecorator, init_kw={'c': 3})
         decorated = partial_decorator(1, 2)(foo)
@@ -40,14 +40,14 @@ class CallTest(TestCase):
         self.assertEqual(('d', 'e', 'f'), decorated.params)
         result = decorated(4, 5, 6)
         self.assertEqual(15, result)
-        
+
     def test_with_args(self):
         partial_decorator = partial(FullDecorator, call_args=(4, 5))
         decorated = partial_decorator(1, 2, 3)(foo)
         self.assertEqual(('f',), decorated.params)
         result = decorated(6)
         self.assertEqual(15, result)
-        
+
     def test_with_kw(self):
         partial_decorator = partial(FullDecorator, call_kw={'f': 6})
         decorated = partial_decorator(1, 2, 3)(foo)
@@ -56,4 +56,3 @@ class CallTest(TestCase):
         self.assertEqual((), decorated.optional_params)
         result = decorated(4, 5)
         self.assertEqual(15, result)
-        

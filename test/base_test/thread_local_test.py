@@ -11,7 +11,7 @@ class ThreadLocalTest(TestCase):
         self.assertEquals(1, local.get())
         local.reset()
         self.assertEquals(0, local.get())
-        
+
     def test_another_thread(self):
         local = ThreadLocal(0)
         values = []
@@ -26,4 +26,3 @@ class ThreadLocalTest(TestCase):
         thread.start()
         thread.join()
         self.assertEquals([0, 1, 0], values)
-        

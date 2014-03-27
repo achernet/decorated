@@ -10,7 +10,7 @@ class DefaultSessionTest(TestCase):
             return a + b
         self.assertEqual(3, foo(1, 2))
         self.assertEqual(3, foo(3, 4))
-        
+
     def test_with_key(self):
         @Once('a')
         def foo(a, b):
@@ -18,7 +18,7 @@ class DefaultSessionTest(TestCase):
         self.assertEqual(3, foo(1, 2))
         self.assertEqual(7, foo(3, 4))
         self.assertEqual(3, foo(1, 2))
-        
+
     def test_diff_funcs(self):
         @Once
         def add(a, b):
@@ -28,7 +28,7 @@ class DefaultSessionTest(TestCase):
             return a * b
         self.assertEqual(3, add(1, 2))
         self.assertEqual(2, mul(1, 2))
-        
+
 class WithSessionTest(TestCase):
     def test_single_level(self):
         @Once
@@ -38,7 +38,7 @@ class WithSessionTest(TestCase):
             self.assertEqual(3, foo(1, 2))
         with OnceSession():
             self.assertEqual(7, foo(3, 4))
-        
+
     def test_multi_levels(self):
         @Once
         def foo(a, b):
@@ -50,7 +50,7 @@ class WithSessionTest(TestCase):
             with OnceSession():
                 with Context():
                     self.assertEqual(7, foo(3, 4))
-                
+
     def test_context_is_not_session(self):
         @Once
         def foo(a, b):
@@ -58,4 +58,3 @@ class WithSessionTest(TestCase):
         with Context():
             self.assertEqual(3, foo(1, 2))
             self.assertEqual(3, foo(3, 4))
-            

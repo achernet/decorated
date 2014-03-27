@@ -4,20 +4,20 @@ import doctest
 class Dict(dict):
     '''
     >>> d = Dict(a=1)
-    
+
     >>> 'a' in d
     True
     >>> d['a']
     1
     >>> d.a
     1
-    
+
     >>> d.a = 2
     >>> d['a']
     2
     >>> d.a
     2
-    
+
     >>> d['b'] = 2
     >>> 'b' in d
     True
@@ -25,7 +25,7 @@ class Dict(dict):
     2
     >>> d.b
     2
-    
+
     >>> d.c = 3
     >>> 'c' in d
     True
@@ -33,7 +33,7 @@ class Dict(dict):
     3
     >>> d.c
     3
-    
+
     >>> del d.c
     >>> 'c' in d
     False
@@ -45,7 +45,7 @@ class Dict(dict):
     Traceback (most recent call last):
     ...
     AttributeError: 'c'
-    
+
     >>> del d.d
     Traceback (most recent call last):
     ...

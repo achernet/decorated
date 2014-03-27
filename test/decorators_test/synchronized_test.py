@@ -13,7 +13,7 @@ class FileLockTest(TestCase):
         class BlockThread(Thread):
             def run(self):
                 foo()
-                
+
         # test
         thread1 = BlockThread()
         thread2 = BlockThread()
@@ -33,7 +33,7 @@ class SynchronizedTest(TestCase):
             return a
         result = foo(1)
         self.assertEqual(1, result)
-        
+
     def test_normal(self):
         # set up
         lock = MemoryLock()
@@ -43,7 +43,7 @@ class SynchronizedTest(TestCase):
         class BlockThread(Thread):
             def run(self):
                 foo()
-                
+
         # test
         thread1 = BlockThread()
         thread2 = BlockThread()
@@ -54,7 +54,7 @@ class SynchronizedTest(TestCase):
         thread2.join()
         end = time.time()
         self.assertGreater(end - begin, 0.02)
-        
+
     def test_error(self):
         lock = MemoryLock()
         @Synchronized(lock)
@@ -62,4 +62,3 @@ class SynchronizedTest(TestCase):
             raise Exception
         with self.assertRaises(Exception):
             foo()
-        

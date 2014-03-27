@@ -20,7 +20,7 @@ class LruCacheTest(TestCase):
         self.assertEquals(1, cache._get('a'))
         cache._delete('a')
         self.assertIsNone(cache._get('a'))
-        
+
 class CacheTest(TestCase):
     def test_simple(self):
         # set up
@@ -31,25 +31,25 @@ class CacheTest(TestCase):
         @cache.uncache('/{id}')
         def unfoo(id):
             pass
-        
+
         # test
         self.assertEqual(0, len(cache._data))
-        
+
         self.assertEqual(1, foo(1))
         self.assertEqual(1, len(cache._data))
-        
+
         self.assertEqual(1, foo(1))
         self.assertEqual(1, len(cache._data))
-        
+
         unfoo(1)
         self.assertEqual(0, len(cache._data))
-        
+
         self.assertEqual(1, foo(1))
         self.assertEqual(1, len(cache._data))
-        
+
         self.assertEqual(2, foo(2))
         self.assertEqual(2, len(cache._data))
-        
+
     def test_extra_vars(self):
         # set up
         cache = SimpleCache()
@@ -64,4 +64,3 @@ class CacheTest(TestCase):
             self.assertIn('/1/2', cache._data)
             unfoo()
             self.assertNotIn('/1/2', cache._data)
-        
